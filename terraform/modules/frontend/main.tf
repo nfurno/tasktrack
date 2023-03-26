@@ -1,3 +1,16 @@
+locals {
+  mime_types = {
+    ".html" = "text/html"
+    ".css"  = "text/css"
+    ".js"   = "application/javascript"
+    ".json" = "application/json"
+    ".png"  = "image/png"
+    ".jpg"  = "image/jpeg"
+    ".gif"  = "image/gif"
+    ".svg"  = "image/svg+xml"
+  }
+}
+
 resource "aws_s3_bucket" "frontend" {
   bucket = var.frontend_bucket_name
 
@@ -79,4 +92,15 @@ resource "aws_cloudfront_distribution" "frontend" {
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1.2_2018"
   }
+}
+
+resource "aws_s3_bucket_object" "web_app_files" {
+  for_each = fileset(var.web_app_build_path, "*")
+
+  bucket       = aws_s3_bucket.frontend_bucket.id
+  key          = each.value
+  source       = "${var.web_app_build_path}/${each.value}"
+  etag         = filemd5("${var.web_app_build_path}/${each.value}")
+  content_type = lookup(local.mime_types, regex("\\.([^.]*)$", each.value), "binary/octet-stream")
+  acl          = "public-read"
 }

@@ -12,3 +12,7 @@ variable "frontend_bucket_name" {
 variable "dynamodb_table_name" {
   
 }
+
+variable "web_app_build_path" {
+  
+}
