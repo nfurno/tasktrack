@@ -101,6 +101,6 @@ resource "aws_s3_bucket_object" "web_app_files" {
   key          = each.value
   source       = "${var.web_app_build_path}/${each.value}"
   etag         = filemd5("${var.web_app_build_path}/${each.value}")
-  content_type = lookup(local.mime_types, regex_replace(each.value, ".*\\.([^.]*)$", "$1"), "binary/octet-stream")
+  content_type = lookup(local.mime_types, replace(each.value, regex(".*\\.([^.]*)$", each.value), ""), "binary/octet-stream")
   acl          = "public-read"
 }
