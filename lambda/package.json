@@ -1,0 +1,17 @@
+{
+  "name": "tasktrack-lambda",
+  "version": "1.0.0",
+  "description": "Lambda function for the TaskTrack application",
+  "main": "index.js",
+  "dependencies": {
+    "aws-sdk": "^2.1034.0",
+    "jsonwebtoken": "^9.0.0",
+    "jwk-to-pem": "^2.0.5",
+    "uuid": "^8.3.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
