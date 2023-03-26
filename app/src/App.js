@@ -4,8 +4,10 @@ import { useState, useEffect } from 'react';
 import { createTask, getTasks, updateTask, deleteTask } from './api';
 import { Auth } from 'aws-amplify';
 import SignIn from './Auth';
-import { Route, Switch, useHistory  } from 'react-router-dom';
+import { Route, Switch, useHistory, Link, Router  } from 'react-router-dom';
 import Callback from './Callback';
+import ProtectedRoute from './ProtectedRoute';
+import SignInPage from './SignInPage';
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -87,18 +89,21 @@ function App() {
                   <Nav.Link href="#settings">Settings</Nav.Link>
                 </Nav>
                 <Nav>
-                  {authenticated ? (
-                    <Nav.Link
-                      onClick={async () => {
-                        await Auth.signOut();
-                        setAuthenticated(false);
-                      }}
-                    >
-                      Logout
-                    </Nav.Link>
-                  ) : (
-                    <Nav.Link href="#login">Login</Nav.Link>
-                  )}
+                {authenticated ? (
+                  <Nav.Link
+                    onClick={async () => {
+                      await Auth.signOut();
+                      setAuthenticated(false);
+                    }}
+                  >
+                    Logout
+                  </Nav.Link>
+                ) : (
+                  // Replace the Nav.Link with the Link component from react-router-dom
+                  <Link to="/signin" className="nav-link">
+                    Login
+                  </Link>
+                )}
                 </Nav>
               </Navbar.Collapse>
             </Container>
@@ -108,7 +113,10 @@ function App() {
               <Route path="/callback">
                 <Callback />
               </Route>
-              <Route path="/">
+              <Route path="/signin">
+                <SignInPage setAuthenticated={setAuthenticated} />
+              </Route>
+              <ProtectedRoute path="/" authenticated={authenticated}>
                 <Container>
                   <Row>
                     <Col md={4}>
@@ -185,7 +193,7 @@ function App() {
                     </Col>
                   </Row>
                 </Container>
-              </Route>
+              </ProtectedRoute>
             </Switch>
           </Router>
         </div>
