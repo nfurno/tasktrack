@@ -29,7 +29,7 @@ module "database" {
 module "authentication" {
   source = "./modules/authentication"
   project_name = local.project_name
-  aws_region = vars.aws_region
+  aws_region = var.aws_region
 }
 
 # Frontend (Amazon S3 & CloudFront)
