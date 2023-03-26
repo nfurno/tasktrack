@@ -97,7 +97,7 @@ resource "aws_cloudfront_distribution" "frontend" {
 resource "aws_s3_bucket_object" "web_app_files" {
   for_each = fileset(var.web_app_build_path, "*")
 
-  bucket       = aws_s3_bucket.frontend_bucket.id
+  bucket       = aws_s3_bucket.frontend.id
   key          = each.value
   source       = "${var.web_app_build_path}/${each.value}"
   etag         = filemd5("${var.web_app_build_path}/${each.value}")
