@@ -27,4 +27,7 @@ resource "aws_cognito_user_pool_domain" "this" {
 resource "random_string" "this" {
   length  = 6
   special = false
+  upper            = false
+  number           = true
+  lower            = true
 }
