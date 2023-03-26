@@ -14,6 +14,7 @@ locals {
 # Backend (AWS Lambda & API Gateway)
 module "backend" {
   source = "./modules/backend"
+  lambda_zip_path = var.lambda_zip_path
   project_name = local.project_name
 }
 
