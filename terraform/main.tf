@@ -16,6 +16,7 @@ module "backend" {
   source = "./modules/backend"
   lambda_zip_path = var.lambda_zip_path
   project_name = local.project_name
+  dynamodb_table_name = var.dynamodb_table_name
 }
 
 # Database (Amazon DynamoDB)
