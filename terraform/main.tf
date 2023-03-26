@@ -14,7 +14,7 @@ locals {
 # Backend (AWS Lambda & API Gateway)
 module "backend" {
   source = "./modules/backend"
-  lambda_zip_path = var.lambda_zip_path
+  lambda_zip_path = "${path.module}/../lambda/lambda-deployment-package.zip"
   project_name = local.project_name
   dynamodb_table_name = var.dynamodb_table_name
 }
