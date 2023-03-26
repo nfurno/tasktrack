@@ -5,3 +5,7 @@ variable "frontend_bucket_name" {
 variable "ssl_certificate_arn" {
   description = "The ARN of the ACM SSL certificate for the frontend"
 }
+
+variable "web_app_build_path" {
+  
+}

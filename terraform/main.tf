@@ -37,4 +37,5 @@ module "frontend" {
   source             = "./modules/frontend"
   frontend_bucket_name = var.frontend_bucket_name
   ssl_certificate_arn  = var.ssl_certificate_arn
+  web_app_build_path = var.web_app_build_path
 }
