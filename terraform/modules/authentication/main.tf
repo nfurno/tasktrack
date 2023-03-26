@@ -20,7 +20,7 @@ resource "aws_cognito_user_pool_client" "this" {
 }
 
 resource "aws_cognito_user_pool_domain" "this" {
-  domain       = "${var.project_name}-${random_string.this.result}.auth.${var.aws_region}.amazoncognito.com"
+  domain       = "${var.project_name}.auth.${var.aws_region}.amazoncognito.com"
   user_pool_id = aws_cognito_user_pool.this.id
 }
 
@@ -28,6 +28,6 @@ resource "random_string" "this" {
   length  = 6
   special = false
   upper            = false
-  number           = true
+  numeric          = true
   lower            = true
 }
